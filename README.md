@@ -1,0 +1,2 @@
+# CocosNewTest
+HelloWorld
