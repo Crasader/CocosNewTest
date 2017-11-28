@@ -30,7 +30,7 @@ bool HelloWorld::init()
     
     //Srinivas
 
-        //Srinivas
+        //Srinivas jfdoajs
     
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
