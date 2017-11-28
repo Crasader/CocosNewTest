@@ -28,7 +28,7 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-        //Srinivas
+        //Srinivas asjdhb
     
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
