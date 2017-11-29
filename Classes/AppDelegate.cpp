@@ -17,12 +17,20 @@ using namespace cocos2d::experimental;
 using namespace CocosDenshion;
 #endif
 
+//own
+static cocos2d::Size workingArea;
+static float scaleFactor;
+typedef struct tagResource
+{
+    cocos2d::Size size;
+    char directory[100];
+}Resource;
+
+using namespace std;
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
+static cocos2d::Size designResolutionSize;
+//own
 
 AppDelegate::AppDelegate()
 {
@@ -73,25 +81,61 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
 
-    // Set the design resolution
+    //own resolution
+    designResolutionSize = cocos2d::Size(1212, 768);
+    Resource mediumResource =  { cocos2d::Size(1212, 768),  "Normal" };
+    Resource largeResource  =  { cocos2d::Size(2424, 1536), "HD" };
+    
+    Size frameSize = glview->getFrameSize();
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
+#else
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
-    auto frameSize = glview->getFrameSize();
-    // if the frame's height is larger than the height of medium size.
-    if (frameSize.height > mediumResolutionSize.height)
-    {        
-        director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
+#endif
+    
+    vector<string> searchPath;
+    
+    float genericDeviceWidth = (frameSize.width > frameSize.height) ? frameSize.width : frameSize.height;
+    float genericDeviceHeight = (frameSize.width > frameSize.height) ? frameSize.height : frameSize.width;
+    
+    if (genericDeviceWidth > designResolutionSize.width || genericDeviceHeight > designResolutionSize.height)
+    {
+        scaleFactor = largeResource.size.height/designResolutionSize.height;
+        searchPath.push_back(largeResource.directory);
+        //searchPath.push_back(mediumResource.directory);
+        director->setContentScaleFactor(scaleFactor);
+        
     }
-    // if the frame's height is larger than the height of small size.
-    else if (frameSize.height > smallResolutionSize.height)
-    {        
-        director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
-    }
-    // if the frame's height is smaller than the height of medium size.
     else
-    {        
-        director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
+    {
+        workingArea = Size(1024.0f, ceilf((1024.0f / 960.0f) * 640.0f));
+        
+        float scaleFactor_deviceToResources = genericDeviceWidth / mediumResource.size.width;
+        
+        if(scaleFactor_deviceToResources * mediumResource.size.height < genericDeviceHeight)
+        {
+            scaleFactor_deviceToResources = genericDeviceHeight / mediumResource.size.height;
+        }
+        
+        float scaleFactor_workingAreaToDevice = (scaleFactor_deviceToResources * workingArea.height) / genericDeviceHeight;
+        
+        if((scaleFactor_workingAreaToDevice * genericDeviceWidth) < (scaleFactor_deviceToResources * workingArea.width))
+        {
+            scaleFactor_workingAreaToDevice = (scaleFactor_deviceToResources * workingArea.width) / genericDeviceWidth;
+        }
+        
+        scaleFactor = scaleFactor_workingAreaToDevice;
+        searchPath.push_back(mediumResource.directory);
+        director->setContentScaleFactor(scaleFactor);
+        
+        CCLOG("scaleFactor=%f",scaleFactor);
     }
-
+    
+    FileUtils::getInstance()->setSearchPaths(searchPath);
+    
+    //own resolution
+    
     register_all_packages();
 
     // create a scene. it's an autorelease object
