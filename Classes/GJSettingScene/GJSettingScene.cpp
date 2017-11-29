@@ -7,6 +7,7 @@
 //
 
 #include "GJSettingScene.hpp"
+#include "GJMenuScene.hpp"
 USING_NS_CC;
 
 Scene* SettingScene::createScene()
@@ -63,11 +64,7 @@ bool SettingScene::init()
         //closeItem->setPosition(Vec2(visibleSize.width + origin.x -closeItem->getContentSize().width*.6, visibleSize.height + origin.y-closeItem->getContentSize().height*.6));
         closeItem->setPosition(Vec2(visibleSize.width + origin.x -closeItem->getContentSize().width*.6, origin.y+closeItem->getContentSize().height*.6));
     }
-    
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+
     
     /////////////////////////////
     // 3. add your codes below...
@@ -75,7 +72,7 @@ bool SettingScene::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("Home", "fonts/Marker Felt.ttf", 24);
     if (label == nullptr)
     {
         problemLoading("'fonts/Marker Felt.ttf'");
@@ -104,24 +101,69 @@ bool SettingScene::init()
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
         
-        sprite->runAction(MoveTo::create(10, Vec2(visibleSize.width*.75+ origin.x, visibleSize.height/2 + origin.y)));
+         auto sprite_move = MoveTo::create(2, Vec2(visibleSize.width*.75+ origin.x, visibleSize.height/2 + origin.y));
+        auto sprite_rot = RotateBy::create(2, 360);
+        //auto rot2 = rot1->reverse();
         
-        //auto MoveTo::create(duration, Vec3(position.x, position.y, 0));
-
+        // auto sprite_seq = Sequence::create(sprite_move, sprite_rot, nullptr);
+         //sprite->runAction(sprite_seq);
+        //sprite->runAction(MoveTo::create(10, Vec2(visibleSize.width*.75+ origin.x, visibleSize.height/2 + origin.y)));
         
-        //MoveTo* MoveTo::create(float duration, const Vec2& position)
-        //{
-        //    return MoveTo::create(duration, Vec3(position.x, position.y, 0));
-        //}
-        
+        sprite->runAction(Sequence::create(sprite_move, sprite_rot, nullptr));
         
     }
+    
+    // add a "setting" icon to exit the progress. it's an autorelease object
+    auto Setting_btn = MenuItemImage::create(
+                                             "CloseNormal.png",
+                                             "CloseSelected.png",
+                                             CC_CALLBACK_1(SettingScene::SettingCallback, this));
+    
+    if (Setting_btn == nullptr ||
+        Setting_btn->getContentSize().width <= 0 ||
+        Setting_btn->getContentSize().height <= 0)
+    {
+        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+    }
+    else
+    {
+        Setting_btn->setPosition(Vec2(visibleSize.width + origin.x -Setting_btn->getContentSize().width*.6, visibleSize.height + origin.y-Setting_btn->getContentSize().height*.6));
+    }
+    
+    // create menu, it's an autorelease object
+    
+    auto Setting_menu = Menu::create(Setting_btn,closeItem, NULL);
+    Setting_menu->setPosition(Vec2::ZERO);
+    this->addChild(Setting_menu, 1);
+    
+    //auto play_label = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 50);
+    // auto play_label = Label::createWithBMFont("fonts/Marker Felt.ttf", "Play");
+    // Setting_menu->addChild(play_label, 1);
+    
+    auto labelPlay = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 30);
+    auto Play_Btn = MenuItemLabel::create(labelPlay, CC_CALLBACK_1(SettingScene::PlayCallback, this));
+    Play_Btn->setPosition(Vec2(origin.x + visibleSize.width/2,
+                               visibleSize.height*.25));
+    this->addChild(Play_Btn, 1);
+    
     return true;
 }
 
 
 void SettingScene::menuCloseCallback(Ref* pSender)
 {
+    CCLOG("CLOSE");
     
-    
+}
+void SettingScene::SettingCallback(Ref* pSender)
+{
+    CCLOG("SETTING");
+    auto scene = MenuScene::createScene();
+    cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
+    Director::getInstance()->replaceScene(transition);
+}
+void SettingScene::PlayCallback(Ref* pSender)
+{
+    CCLOG("Play");
+
 }
