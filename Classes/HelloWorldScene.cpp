@@ -59,6 +59,7 @@ bool HelloWorld::init()
         closeItem->setPosition(Vec2(x,y));
     }
 
+//    dmnsdm
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
