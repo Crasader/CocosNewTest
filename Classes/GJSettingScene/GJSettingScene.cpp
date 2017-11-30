@@ -8,6 +8,8 @@
 
 #include "GJSettingScene.hpp"
 #include "GJMenuScene.hpp"
+#include "GJPlayScene.hpp"
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
 
 Scene* SettingScene::createScene()
@@ -36,12 +38,26 @@ bool SettingScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     CCLOG("Entered ");
-    //Srinivas
+    //Sound Added
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BGM_MainMenu.mp3",true);
+    
+ 
     
     
-    //Srinivas asjdhb
     
-    //Cahanges added.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -115,24 +131,41 @@ bool SettingScene::init()
     
     // add a "setting" icon to exit the progress. it's an autorelease object
     auto Setting_btn = MenuItemImage::create(
-                                             "CloseNormal.png",
-                                             "CloseSelected.png",
+                                             "SettingsBtn.png",
+                                             "SettingsBtn.png",
                                              CC_CALLBACK_1(SettingScene::SettingCallback, this));
     
     if (Setting_btn == nullptr ||
         Setting_btn->getContentSize().width <= 0 ||
         Setting_btn->getContentSize().height <= 0)
     {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+        problemLoading("'SettingsBtn.png' and 'SettingsBtn.png'");
     }
     else
     {
         Setting_btn->setPosition(Vec2(visibleSize.width + origin.x -Setting_btn->getContentSize().width*.6, visibleSize.height + origin.y-Setting_btn->getContentSize().height*.6));
     }
     
+    auto Play_btn = MenuItemImage::create(
+                                             "PlayBtn.png",
+                                             "PlayBtn.png",
+                                             CC_CALLBACK_1(SettingScene::PlayCallback, this));
+    
+    if (Play_btn == nullptr ||
+        Play_btn->getContentSize().width <= 0 ||
+        Play_btn->getContentSize().height <= 0)
+    {
+        problemLoading("'SettingsBtn.png' and 'SettingsBtn.png'");
+    }
+    else
+    {
+        Play_btn->setPosition(Vec2(origin.x + visibleSize.width/2,
+                                   visibleSize.height*.25));
+    }
+    
     // create menu, it's an autorelease object
     
-    auto Setting_menu = Menu::create(Setting_btn,closeItem, NULL);
+    auto Setting_menu = Menu::create(Setting_btn,closeItem,Play_btn, NULL);
     Setting_menu->setPosition(Vec2::ZERO);
     this->addChild(Setting_menu, 1);
     
@@ -140,11 +173,11 @@ bool SettingScene::init()
     // auto play_label = Label::createWithBMFont("fonts/Marker Felt.ttf", "Play");
     // Setting_menu->addChild(play_label, 1);
     
-    auto labelPlay = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 30);
-    auto Play_Btn = MenuItemLabel::create(labelPlay, CC_CALLBACK_1(SettingScene::PlayCallback, this));
-    Play_Btn->setPosition(Vec2(origin.x + visibleSize.width/2,
-                               visibleSize.height*.25));
-    this->addChild(Play_Btn, 1);
+//    auto labelPlay = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 30);
+//    auto Play_Btn = MenuItemLabel::create(labelPlay, CC_CALLBACK_1(SettingScene::PlayCallback, this));
+//    Play_Btn->setPosition(Vec2(origin.x + visibleSize.width/2,
+//                               visibleSize.height*.25));
+//    this->addChild(Play_Btn, 1);
     
     return true;
 }
@@ -153,6 +186,7 @@ bool SettingScene::init()
 void SettingScene::menuCloseCallback(Ref* pSender)
 {
     CCLOG("CLOSE");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/SFX_ButtonClick.wav");
     
 }
 void SettingScene::SettingCallback(Ref* pSender)
@@ -165,5 +199,8 @@ void SettingScene::SettingCallback(Ref* pSender)
 void SettingScene::PlayCallback(Ref* pSender)
 {
     CCLOG("Play");
+    auto scene = PlayScene::createScene();
+    cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
+    Director::getInstance()->replaceScene(transition);
 
 }

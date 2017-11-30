@@ -7,6 +7,7 @@
 //
 
 #include "GJMenuScene.hpp"
+#include "GJSettingScene.hpp"
 USING_NS_CC;
 
 using namespace cocos2d::ui;
@@ -123,5 +124,8 @@ void MenuScene::MuteCallback(Ref* pSender)
 void MenuScene::BackCallback(Ref* pSender)
 {
     CCLOG("Back");
-    
+    auto scene = SettingScene::createScene();
+    cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
+    Director::getInstance()->replaceScene(transition);
+
 }
