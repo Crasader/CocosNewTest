@@ -23,8 +23,10 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     void SettingCallback(cocos2d::Ref* pSender);
     void PlayCallback(cocos2d::Ref* pSender);
-    
+    int getting_data_from_plist(int l,std::string s);
+
     // implement the "static create()" method manually
     CREATE_FUNC(SettingScene);
 };
 #endif /* GJSettingScene_hpp */
+
