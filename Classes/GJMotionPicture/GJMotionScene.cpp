@@ -105,7 +105,6 @@ bool MotionScene::init()
     motionSprite3->runAction( Sequence::create( thirdMPdelay,thirdMPmove, nullptr));
     motionSprite3->runAction( Sequence::create( thirdMPdelay,MPfade,MPdelay,MPfade_reverse, nullptr));
    
-
     CCLOG("Entered ");
     return true;
 }

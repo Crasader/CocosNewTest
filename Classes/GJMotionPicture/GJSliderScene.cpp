@@ -10,7 +10,13 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+
+
 using namespace cocos2d;
+using namespace ui;
 
 USING_NS_CC;
 
@@ -39,25 +45,27 @@ bool SliderScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-//
-//    for (int i = 0; i < 50; i++)
-//    {
-//        cocos2d::__String * nomDuFichier = String::createWithFormat("%d.png", i);
-//        auto menu1 = MenuItemFont::create(nomDuFichier->string, CCCALLBACK_1(HelloWorld::Touch1, this));
-//        menu->addChild(menu1);
-//    }
-//    menu->alignItemsVertically();
-//    
-//    scrollView = cocos2d::extension::ScrollView::create();
-//    scrollView->retain();
-//    scrollView->setContainer(menu);
-//    scrollView->setDirection(extension::ScrollView::Direction::VERTICAL);
-//    scrollView->setViewSize(Size(visibleSize.width, visibleSize.height));
-//    scrollView->setTouchEnabled(true);
-//    scrollView->setContentSize(Size(menu->getContentSize().width, menu->getContentSize().height));
-//    scrollView->unscheduleAllSelectors();
-//    scrollView->updateInset();
-//    this->addChild(scrollView, 2);
+    ui::ScrollView *scrollView = ui::ScrollView::create( );
+    
+    scrollView->setDirection( ui::ScrollView::Direction::HORIZONTAL );
+    scrollView->setContentSize( Size( 500, 500 ) );
+    scrollView->setInnerContainerSize( Size( 1000, 500 ) );
+    scrollView->setBackGroundImage( "HelloWorld.png" );
+    scrollView->setBounceEnabled( true );
+    scrollView->setAnchorPoint( Vec2( 0.5, 0.5 ) );
+    scrollView->setPosition( Vec2( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y) );
+    for ( int i = 1; i <= 4; i++ )
+    {
+        
+        ui::Button *button = ui::Button::create( "Sliderbox.png", "Sliderbox.png" );
+        button->setPosition( Vec2( ((scrollView->getContentSize( ).width/4)*(i+(i-1))), scrollView->getContentSize( ).height / 2) );
+        scrollView->addChild( button );
+    }
+    this->addChild( scrollView );
+    
+    
+    
+    
 
     return true;
 }

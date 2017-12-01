@@ -90,10 +90,14 @@ void PlayScene::PopCallback(Ref* pSender)
     
     this->subLayer =Layer::create();
     
-    this->blackBGSprite = Sprite::create("BG2.jpg");
+    this->blackBGSprite = Sprite::create("BG.jpg");
     this->blackBGSprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     //sprite->setTag(black_tag);
-
+    
+    Sprite *imgSpr = Sprite::create("Img1.jpg");
+    imgSpr->setPosition(Vec2(1059.7,444.0));
+    imgSpr->setOpacity(155);
+    this->blackBGSprite->addChild(imgSpr,11);
 //    subLayer->addChild(this->blackBGSprite, 10);
 //    this->addChild(subLayer,100);
     
