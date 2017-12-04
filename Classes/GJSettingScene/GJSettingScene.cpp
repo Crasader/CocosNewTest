@@ -48,20 +48,20 @@ bool SettingScene::init()
     //    you may modify it.
     
     // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
+    auto Coin = MenuItemImage::create(
                                            "Coin.png",
                                            "Coin.png",
                                            CC_CALLBACK_1(SettingScene::menuCloseCallback, this));
     
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
+    if (Coin == nullptr ||
+        Coin->getContentSize().width <= 0 ||
+        Coin->getContentSize().height <= 0)
     {
         problemLoading("'Coin.png' and 'Coin.png'");
     }
     else
     {
-         closeItem->setPosition(Vec2(visibleSize.width + origin.x -closeItem->getContentSize().width*.6, visibleSize.height + origin.y-closeItem->getContentSize().height*.6));
+         Coin->setPosition(Vec2(visibleSize.width + origin.x -Coin->getContentSize().width*.6, visibleSize.height + origin.y-Coin->getContentSize().height*.6));
         //closeItem->setPosition(Vec2(visibleSize.width + origin.x -closeItem->getContentSize().width*.6, origin.y+closeItem->getContentSize().height*.6));
     }
 
@@ -95,22 +95,8 @@ bool SettingScene::init()
     }
     else
     {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.height/2 + origin.x, visibleSize.height/2 + origin.y));
-        
-        // add the sprite as a child to this layer
-        this->addChild(sprite, 0);
-        
-        // auto sprite_move = MoveTo::create(2, Vec2(visibleSize.width*.75+ origin.x, visibleSize.height/2 + origin.y));
-        //auto sprite_rot = RotateBy::create(2, 360);
-        //auto rot2 = rot1->reverse();
-        
-        // auto sprite_seq = Sequence::create(sprite_move, sprite_rot, nullptr);
-         //sprite->runAction(sprite_seq);
-        //sprite->runAction(MoveTo::create(10, Vec2(visibleSize.width*.75+ origin.x, visibleSize.height/2 + origin.y)));
-        
-        //sprite->runAction(Sequence::create(sprite_move, sprite_rot, nullptr));
-        
+        sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+        this->addChild(sprite, 0); 
     }
     
     // add a "setting" icon to exit the progress. it's an autorelease object
@@ -143,28 +129,17 @@ bool SettingScene::init()
     }
     else
     {
-         Play_btn->setPosition(Vec2(origin.x + Play_btn->getContentSize().width*.6, visibleSize.height + origin.y-Play_btn->getContentSize().height*.24));
+         Play_btn->setPosition(Vec2(origin.x + Play_btn->getContentSize().width*.6, visibleSize.height + origin.y-Play_btn->getContentSize().height*1.8));
         //Play_btn->setPosition(Vec2(origin.x + visibleSize.width/2,
           //                         visibleSize.height*.25));
     }
     
     // create menu, it's an autorelease object
     
-    auto Setting_menu = Menu::create(Setting_btn,closeItem,Play_btn, NULL);
+    auto Setting_menu = Menu::create(Setting_btn,Coin,Play_btn, NULL);
     Setting_menu->setPosition(Vec2::ZERO);
     this->addChild(Setting_menu, 1);
-    
-    //auto play_label = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 50);
-    // auto play_label = Label::createWithBMFont("fonts/Marker Felt.ttf", "Play");
-    // Setting_menu->addChild(play_label, 1);
-    
-//    auto labelPlay = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 30);
-//    auto Play_Btn = MenuItemLabel::create(labelPlay, CC_CALLBACK_1(SettingScene::PlayCallback, this));
-//    Play_Btn->setPosition(Vec2(origin.x + visibleSize.width/2,
-//                               visibleSize.height*.25));
-//    this->addChild(Play_Btn, 1);
-    
-    //
+
     ValueMap data;
     std::string path = FileUtils::getInstance()->fullPathForFilename("Plist/FirstPointArray.plist");
     data = FileUtils::getInstance()->getValueMapFromFile(path);
@@ -258,6 +233,7 @@ void SettingScene::SettingCallback(Ref* pSender)
     auto scene = MenuScene::createScene();
     cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
     Director::getInstance()->replaceScene(transition);
+        
 }
 void SettingScene::PlayCallback(Ref* pSender)
 {

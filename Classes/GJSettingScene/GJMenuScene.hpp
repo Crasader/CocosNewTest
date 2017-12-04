@@ -18,12 +18,16 @@ public:
     virtual bool init();
     
     // a selector callback
-    void VolumeCallback(cocos2d::Ref* pSender);
-    void MuteCallback(cocos2d::Ref* pSender);
-    void BackCallback(cocos2d::Ref* pSender);
+    void SoundCallback(cocos2d::Ref* pSender);
+    void MusicCallback(cocos2d::Ref* pSender);
+    void ChartCallback(cocos2d::Ref* pSender);
+    void RateCallback(cocos2d::Ref* pSender);
+    void AboutCallback(cocos2d::Ref* pSender);
+    void CloseCallback(cocos2d::Ref* pSender);
 
     
     // implement the "static create()" method manually
     CREATE_FUNC(MenuScene);
 };
 #endif /* GJMenuScene_hpp */
+
