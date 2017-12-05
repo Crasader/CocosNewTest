@@ -73,7 +73,6 @@ bool PlayScene::init()
     auto Setting_menu = Menu::create(Pop_btn,Back_btn, NULL);
     Setting_menu->setPosition(Vec2::ZERO);
     this->addChild(Setting_menu, 1);
-
     return true;
 }
 
@@ -114,8 +113,6 @@ void PlayScene::PopCallback(Ref* pSender)
     }
     else
     {
-
-        //Close_btn->setPosition(Vec2(this->blackBGSprite->getContentSize().width -Close_btn->getContentSize().width*.6 ,this->blackBGSprite->getContentSize().height -Close_btn->getContentSize().height*.6));
         Close_btn->setPosition(Vec2(this->blackBGSprite->getContentSize().width*.95,this->blackBGSprite->getContentSize().height*.90));
     }
     
