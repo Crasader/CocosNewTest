@@ -170,6 +170,7 @@ bool MenuScene::init()
     auto Sound_label = Label::createWithTTF("SOUND", "fonts/Marker Felt.ttf", 40);
     Sound_label->setPosition(Vec2(visibleSize.width*.18, visibleSize.height*.63));
     Sound_label->setHorizontalAlignment(TextHAlignment::RIGHT);
+    //Sound_label->setHorizontalAlignment(TextHAlignment::LEFT);
     SettingPanel->addChild(Sound_label, 1);
     
     auto Music_label = Label::createWithTTF("MUSIC", "fonts/Marker Felt.ttf", 40);
