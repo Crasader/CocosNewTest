@@ -316,7 +316,7 @@ bool MotionScene::onTouchBegan(Touch* touch, Event* event)
         auto firstMPmove1 = MoveBy::create(0.1, Vec2(1,0));
         auto delay = DelayTime::create(1);
         MPLayer2->runAction(MPfade);
-       auto seq = Sequence::create(delay,firstMPmove,firstMPmove1, nullptr);
+        auto seq = Sequence::create(delay,firstMPmove,firstMPmove1, nullptr);
         MPLayer2->runAction(RepeatForever::create(seq));
 
         
