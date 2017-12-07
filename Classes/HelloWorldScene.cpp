@@ -28,13 +28,19 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    //ajfdha
+    //sdkjfn
+    
     CCLOG("Entered ");
     //Srinivas
 
-
+//Extra work for Branch.
+    
         //Srinivas asjdhb
     
     //Cahanges added.
+    
+    //Canged in MyBranch1
     
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
