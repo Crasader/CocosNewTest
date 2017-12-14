@@ -11,6 +11,11 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+
+
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+
 using namespace cocos2d;
 
 class SettingScene : public cocos2d::Scene
@@ -54,6 +59,11 @@ public:
     void HomeCallback(cocos2d::Ref* pSender);
     
     
+    ui::PageView *pageView;
+    ui::PageView *settingpageView;
+    void PlayClickCallback(cocos2d::Ref* pSender);
+    
+  
     
     Layer *menuSettingLayer;
 
