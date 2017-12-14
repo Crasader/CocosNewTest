@@ -34,45 +34,44 @@ bool MotionScene::init()
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    // label = Label::createWithSystemFont("hello","Arial.ttf",40);
+
+    auto motionSprite1 = Sprite::create("MP1.png");
+
+    if (motionSprite1 == nullptr)
+    {
+        problemLoading("'MP1.png'");
+    }
+    else
+    {
+        motionSprite1->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+        //motionSprite1->setScale(1.1);
+        this->addChild(motionSprite1, 0);
+    }
+
+    auto MPfade = FadeIn::create(1.0f);
+    auto firstMPscale = ScaleTo::create(25, 1.2f);
+    auto firstMPmove = MoveBy::create(25, Vec2(60,-60));
+    auto firstMPmove1 = MoveBy::create(10, Vec2(-20,20));
     
-   // label = Label::createWithSystemFont("hello","Arial.ttf",40);
+    //auto MPfade_reverse = MPfade->reverse();
+
+    motionSprite1->setOpacity(0);
+    motionSprite1->runAction( firstMPscale);
+    motionSprite1->runAction( Sequence::create( MPfade,firstMPmove,firstMPmove1, nullptr));
+
+    //this->scheduleOnce(CC_SCHEDULE_SELECTOR(MotionScene::afterFirstMotion), 10.0f);
     
-        auto motionSprite1 = Sprite::create("MP1.png");
-    
-        if (motionSprite1 == nullptr)
-        {
-            problemLoading("'MP1.png'");
-        }
-        else
-        {
-            motionSprite1->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-            //motionSprite1->setScale(1.1);
-            this->addChild(motionSprite1, 0);
-        }
-    
-        auto MPfade = FadeIn::create(1.0f);
-        auto firstMPscale = ScaleTo::create(25, 1.2f);
-        auto firstMPmove = MoveBy::create(25, Vec2(60,-60));
-        auto firstMPmove1 = MoveBy::create(10, Vec2(-20,20));
-        //auto MPfade_reverse = MPfade->reverse();
-    
-        motionSprite1->setOpacity(0);
-        motionSprite1->runAction( firstMPscale);
-        motionSprite1->runAction( Sequence::create( MPfade,firstMPmove,firstMPmove1, nullptr));
-    
-        //this->scheduleOnce(CC_SCHEDULE_SELECTOR(MotionScene::afterFirstMotion), 10.0f);
-    
-    
-    
-        charSprite1 = Sprite::create("Character1.png");
-        charSprite1->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-        charSprite1->setScale(0);
-        this->addChild(charSprite1, 1);
-    
-        charSprite2 = Sprite::create("Character2.png");
-        charSprite2->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-        charSprite2->setScale(0);
-        this->addChild(charSprite2, 1);
+    charSprite1 = Sprite::create("Character1.png");
+    charSprite1->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    charSprite1->setScale(0);
+    this->addChild(charSprite1, 1);
+
+    charSprite2 = Sprite::create("Character2.png");
+    charSprite2->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    charSprite2->setScale(0);
+    this->addChild(charSprite2, 1);
  
 
     this->MPLayer1 =Layer::create();
@@ -108,7 +107,6 @@ bool MotionScene::init()
     }
 
     auto touchListener = EventListenerTouchOneByOne::create();
-    
     touchListener->onTouchBegan = CC_CALLBACK_2(MotionScene::onTouchBegan, this);
     touchListener->onTouchEnded = CC_CALLBACK_2(MotionScene::onTouchEnded, this);
     touchListener->onTouchMoved = CC_CALLBACK_2(MotionScene::onTouchMoved, this);
@@ -278,9 +276,7 @@ bool MotionScene::onTouchBegan(Touch* touch, Event* event)
         label->setPosition(Vec2(origin.x + visibleSize.width/2,
                                 origin.y + visibleSize.height*.18));
         MPLayer1->setOpacity(0);
-        
         auto firstMPmove = MoveBy::create(10, Vec2(-40,0));
-   
         MPLayer1->runAction( Sequence::create( MPfade,firstMPmove, nullptr));
 
          MPLayer1->setScale(1);
@@ -311,15 +307,12 @@ bool MotionScene::onTouchBegan(Touch* touch, Event* event)
         label->setPosition(Vec2(origin.x + visibleSize.width*.60,
                                 origin.y + visibleSize.height*.90));
         MPLayer2->setOpacity(0);
-        
         auto firstMPmove = MoveBy::create(0.1, Vec2(-1,0));
         auto firstMPmove1 = MoveBy::create(0.1, Vec2(1,0));
         auto delay = DelayTime::create(1);
         MPLayer2->runAction(MPfade);
         auto seq = Sequence::create(delay,firstMPmove,firstMPmove1, nullptr);
         MPLayer2->runAction(RepeatForever::create(seq));
-
-        
         MPLayer2->setScale(1);
     }
     else if(Label_val==20)
