@@ -45,6 +45,86 @@ bool SettingScene::init()
     
     CCLOG("Entered");
     
+    ui::ImageView *imgview1 = ui::ImageView::create("BG.jpg");
+    ui::ImageView *imgview2 = ui::ImageView::create("BG2.jpg");
+    ui::ImageView *imgview3 = ui::ImageView::create("BG.jpg");
+    imgview1->setAnchorPoint( Vec2( 0, 0 ) );
+    imgview2->setAnchorPoint( Vec2( 0, 0 ) );
+    imgview3->setAnchorPoint( Vec2( 0, 0 ) );
+    
+    pageView = ui::PageView::create();
+    pageView->setTouchEnabled( true );
+    pageView->setContentSize( Size( visibleSize.width,1536) );
+    pageView->setPosition(Vec2(0, 0));
+    //pageView->setPosition(Vec2(visibleSize.width/2+origin.x, visibleSize.height/2+origin.y));
+
+    ui::Layout *layout1 = ui::Layout::create();
+    //layout1->setContentSize( Size( visibleSize.width,visibleSize.height) );
+    layout1->addChild(imgview1);
+    
+    ui::Layout *layout2 = ui::Layout::create();
+    //layout2->setContentSize( Size( visibleSize.width,visibleSize.height) );
+    layout2->addChild(imgview2);
+ 
+    ui::Layout *layout3 = ui::Layout::create();
+    //layout3->setContentSize( Size( visibleSize.width,visibleSize.height) );
+    layout3->addChild(imgview3);
+    
+    pageView->addPage(layout1);
+    pageView->insertPage(layout2,1);
+    pageView->insertPage(layout3,2);
+    
+    this->addChild(pageView,5);
+    
+    auto Setting_btn1 = MenuItemImage::create(
+                                              "Setting.png",
+                                              "Setting.png",
+                                              CC_CALLBACK_1(SettingScene::SettingCallback, this));
+    Setting_btn1->setPosition(Vec2(origin.x + Setting_btn1->getContentSize().width*.6, visibleSize.height + origin.y-Setting_btn1->getContentSize().height*.6));
+    
+    auto Play_btn1 = MenuItemImage::create(
+                                          "PlayBtn.png",
+                                          "PlayBtn.png",
+                                          CC_CALLBACK_1(SettingScene::PlayClickCallback, this));
+    Play_btn1->setPosition(Vec2(origin.x + visibleSize.width/2,origin.y+
+                                                        visibleSize.height/2));
+    
+    
+    auto Setting_menu1 = Menu::create(Setting_btn1,Play_btn1, NULL);
+    Setting_menu1->setPosition(Vec2::ZERO);
+    
+    layout2->addChild(Setting_menu1,10);
+    
+    
+    
+
+    
+//    PageView *pageView = PageView::create( );
+//    pageView->setTouchEnabled( true );
+//    pageView->setContentSize( Size( 240.0, 900.0 ) );
+//    pageView->setAnchorPoint( Vec2( 0.5, 0.5 ) );
+//
+//    Layout *layout = Layout::create( );
+//    layout->setContentSize( Size( 240.0, 900.0 ) );
+//    // add a node to the layout (multiple nodes can be added to the layout)
+//    layout->addChild( elementToAddToLayout );
+//
+//    // add a layout as a page
+//    pageView->addPage( layout );
+//    // add a layout as a page at a certain index
+//    pageView->insertPage( layout, 1 );
+//
+//    // remove a particular page
+//    pageView->removePageAtIndex( 0 );
+//    // remove all the pages
+//    pageView->removeAllPages( );
+//
+//    // scroll to a particular page
+//    pageView->scrollToPage( 2 );
+//
+    
+    
+    
     //Sound Added
     //CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BGM_MainMenu.mp3",true);
     
@@ -122,6 +202,7 @@ bool SettingScene::init()
     auto Setting_menu = Menu::create(Setting_btn,Coin,Play_btn, NULL);
     Setting_menu->setPosition(Vec2::ZERO);
     this->addChild(Setting_menu, 1);
+    
 
     ValueMap data;
     std::string path = FileUtils::getInstance()->fullPathForFilename("Plist/FirstPointArray.plist");
@@ -209,7 +290,8 @@ bool SettingScene::init()
     this->addChild(white_bg, 200);
     
     this->menuSettingLayer =Layer::create();
-    bg->setOpacity(50);
+    //bg->setOpacity(50);
+    
     
     
     
@@ -531,9 +613,7 @@ bool SettingScene::init()
         }
     }
     white_bg->addChild( scrollView );
-    
-    
-    
+
     return true;
 }
 
@@ -603,7 +683,7 @@ void SettingScene::ResumeCallback(Ref* pSender)
     whiteMoveReverse = MoveTo::create(1, Vec2(origin.x + ((black_bg->getContentSize().width/2)*16), visibleSize.height/2));
     white_bg->runAction( whiteMoveReverse);
     
-    bg->setOpacity(255);
+    //bg->setOpacity(255);
 }
 void SettingScene::RestartCallback(Ref* pSender)
 {
@@ -612,10 +692,19 @@ void SettingScene::RestartCallback(Ref* pSender)
 void SettingScene::HomeCallback(Ref* pSender)
 {
     CCLOG("Home");
+    pageView->setScale(1);
+    black_bg->setPosition(Vec2(origin.x - black_bg->getContentSize().width/2, visibleSize.height/2));
+    white_bg->setPosition(Vec2(origin.x + ((black_bg->getContentSize().width/2)*16), visibleSize.height/2));
 }
 void SettingScene::glinkCallback(Ref* pSender)
 {
     CCLOG("Google_Link");
     Application::getInstance()->openURL("https://play.google.com/store?");
 }
+void SettingScene::PlayClickCallback(Ref* pSender)
+{
+    CCLOG("play_clk");
+    pageView->setScale(0);
+}
+
 
