@@ -3,6 +3,9 @@
 #include "GJSliderScene.hpp"
 #include "GJSettingScene.hpp"
 #include "GJMotionScene.hpp"
+#include "GJGameScene.hpp"
+#include "GJGameScene.hpp"
+
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -141,7 +144,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = SettingScene::createScene();
+    auto scene = GameScene::createScene();
 
     // run
     director->runWithScene(scene);

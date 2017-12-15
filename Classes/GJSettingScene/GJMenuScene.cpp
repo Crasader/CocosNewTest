@@ -5,7 +5,7 @@
 //  Created by Winsols/Srinivas on 28/11/17.
 //
 //
-
+#include "GJGameScene.hpp"
 #include "GJMenuScene.hpp"
 #include "GJSettingScene.hpp"
 USING_NS_CC;
@@ -220,7 +220,7 @@ void MenuScene::AboutCallback(Ref* pSender)
 void MenuScene::CloseCallback(Ref* pSender)
 {
     CCLOG("Back");
-    auto scene = SettingScene::createScene();
+    auto scene = GameScene::createScene();
     cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
     Director::getInstance()->replaceScene(transition);
 

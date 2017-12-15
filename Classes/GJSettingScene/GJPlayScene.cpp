@@ -5,7 +5,7 @@
 //  Created by admin on 29/11/17.
 //
 //
-
+#include "GJGameScene.hpp"
 #include "GJPlayScene.hpp"
 #include "GJSettingScene.hpp"
 USING_NS_CC;
@@ -144,7 +144,7 @@ void PlayScene::PopCallback(Ref* pSender)
 void PlayScene::BackCallback(Ref* pSender)
 {
     CCLOG("Back");
-    auto scene = SettingScene::createScene();
+    auto scene = GameScene::createScene();
     cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
     Director::getInstance()->replaceScene(transition);
     

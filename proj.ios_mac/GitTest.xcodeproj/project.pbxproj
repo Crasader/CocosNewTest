@@ -60,6 +60,8 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		5858C6D31FE3A2AD00F178C9 /* GJGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5858C6D11FE3A2AD00F178C9 /* GJGameScene.cpp */; };
+		5858C6D41FE3A2AD00F178C9 /* GJGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5858C6D11FE3A2AD00F178C9 /* GJGameScene.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		841E21A31FCFEB1200E0641E /* GJSliderScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841E21A11FCFEB1200E0641E /* GJSliderScene.cpp */; };
 		841E21A41FCFEB1200E0641E /* GJSliderScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841E21A11FCFEB1200E0641E /* GJSliderScene.cpp */; };
@@ -176,6 +178,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		5858C6D11FE3A2AD00F178C9 /* GJGameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GJGameScene.cpp; sourceTree = "<group>"; };
+		5858C6D21FE3A2AD00F178C9 /* GJGameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GJGameScene.hpp; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		841E21A11FCFEB1200E0641E /* GJSliderScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GJSliderScene.cpp; sourceTree = "<group>"; };
 		841E21A21FCFEB1200E0641E /* GJSliderScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GJSliderScene.hpp; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5858C6D01FE3A28100F178C9 /* GJGameScene */,
 				841EEDA91FCEF43B00E72C8E /* GJMotionPicture */,
 				843E8D181FCD5FCE004BA4E0 /* GJSettingScene */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -400,6 +405,15 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		5858C6D01FE3A28100F178C9 /* GJGameScene */ = {
+			isa = PBXGroup;
+			children = (
+				5858C6D11FE3A2AD00F178C9 /* GJGameScene.cpp */,
+				5858C6D21FE3A2AD00F178C9 /* GJGameScene.hpp */,
+			);
+			path = GJGameScene;
+			sourceTree = "<group>";
 		};
 		841EEDA91FCEF43B00E72C8E /* GJMotionPicture */ = {
 			isa = PBXGroup;
@@ -592,6 +606,7 @@
 				841EED9E1FCE82A500E72C8E /* GJPlayScene.cpp in Sources */,
 				843E8D231FCD788E004BA4E0 /* GJSettingScene.cpp in Sources */,
 				841EEDAC1FCEF46200E72C8E /* GJMotionScene.cpp in Sources */,
+				5858C6D31FE3A2AD00F178C9 /* GJGameScene.cpp in Sources */,
 				841E21A31FCFEB1200E0641E /* GJSliderScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
@@ -605,6 +620,7 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				841EEDAD1FCEF46200E72C8E /* GJMotionScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				5858C6D41FE3A2AD00F178C9 /* GJGameScene.cpp in Sources */,
 				841E21A41FCFEB1200E0641E /* GJSliderScene.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);

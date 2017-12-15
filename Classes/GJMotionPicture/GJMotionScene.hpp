@@ -35,6 +35,8 @@ public:
     void functionfun1();
     void afterFirstMotion(float dt);
     
+    void BackCallback(cocos2d::Ref* pSender);
+    
     virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
