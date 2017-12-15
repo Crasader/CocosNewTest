@@ -60,7 +60,7 @@ public:
     
     
     ui::PageView *pageView;
-    ui::PageView *settingpageView;
+    ui::PageView *bgpageView;
     void PlayClickCallback(cocos2d::Ref* pSender);
     
   
