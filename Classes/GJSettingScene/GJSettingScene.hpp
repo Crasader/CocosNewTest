@@ -16,6 +16,14 @@
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 
+
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+USING_NS_CC;
+
+using namespace ui;
+
+
 using namespace cocos2d;
 
 class SettingScene : public cocos2d::Scene
@@ -25,6 +33,15 @@ public:
     
     virtual bool init();
     
+    //FadeTo* fade = FadeTo::create(1.0f,100);
+    
+    MoveTo *menuMoveEffect0;
+    MoveTo *menuMoveEffect1;
+    MoveTo *menuMoveEffect2;
+    MoveTo *menuMoveEffect3;
+    MoveTo *menuMoveEffect4;
+    MoveTo *menuMoveEffect5;
+    
     
     MoveTo *blackMoveEffect;
     MoveTo *blackMoveReverse;
@@ -33,6 +50,12 @@ public:
     Sprite *black_bg;
     Sprite *white_bg;
     Sprite *bg;
+    
+    MenuItemLabel *MenuItem1;
+    MenuItemLabel *MenuItem2;
+    MenuItemLabel *MenuItem3;
+    MenuItemLabel *MenuItem4;
+    //auto MenuItem1;
     
     Size visibleSize;
     Point origin;
@@ -58,10 +81,22 @@ public:
     void RestartCallback(cocos2d::Ref* pSender);
     void HomeCallback(cocos2d::Ref* pSender);
     
+    void GoalspageCallback(cocos2d::Ref* pSender);
+    void SettingpageCallback(cocos2d::Ref* pSender);
+    void StatspageCallback(cocos2d::Ref* pSender);
+    void GooglepageCallback(cocos2d::Ref* pSender);
+    
     
     ui::PageView *pageView;
     ui::PageView *bgpageView;
     void PlayClickCallback(cocos2d::Ref* pSender);
+    
+    void pageViewEvent(Ref *sender, ui::PageView::EventType type);
+    
+    virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
     
   
     
