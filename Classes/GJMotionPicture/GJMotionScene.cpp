@@ -7,6 +7,7 @@
 //
 
 #include "GJMotionScene.hpp"
+#include "GJGameScene.hpp"
 USING_NS_CC;
 
 Scene* MotionScene::createScene()
@@ -115,6 +116,25 @@ bool MotionScene::init()
     touchListener->onTouchCancelled = CC_CALLBACK_2(MotionScene::onTouchCancelled, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
+    auto Back_btn = MenuItemImage::create(
+                                          "PlayBtn.png",
+                                          "PlayBtn.png",
+                                          CC_CALLBACK_1(MotionScene::BackCallback, this));
+    Back_btn->setRotation(180);
+    if (Back_btn == nullptr ||
+        Back_btn->getContentSize().width <= 0 ||
+        Back_btn->getContentSize().height <= 0)
+    {
+        problemLoading("'PlayBtn.png' and 'PlayBtn.png'");
+    }
+    else
+    {
+        Back_btn->setPosition(Vec2(origin.x + Back_btn->getContentSize().width*.6, origin.y+Back_btn->getContentSize().height*.6));
+    }
+    auto Setting_menu = Menu::create(Back_btn, NULL);
+    Setting_menu->setPosition(Vec2::ZERO);
+    this->addChild(Setting_menu, 1);
 
    
     CCLOG("Entered ");
@@ -336,6 +356,13 @@ bool MotionScene::onTouchBegan(Touch* touch, Event* event)
     }
     this->addChild(label, 3);
     return true;
+}
+void MotionScene::BackCallback(Ref* pSender)
+{
+    CCLOG("Back");
+    auto scene = GameScene::createScene();
+    cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
+    Director::getInstance()->replaceScene(transition);
 }
 
 void MotionScene::onTouchEnded(Touch* touch, Event* event)
