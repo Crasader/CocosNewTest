@@ -12,11 +12,6 @@
 #include <stdio.h>
 #include "cocos2d.h"
 
-
-#include "extensions/cocos-ext.h"
-#include "ui/CocosGUI.h"
-
-
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 USING_NS_CC;
@@ -61,6 +56,8 @@ public:
     Point origin;
     
     int add_val = 0;
+    int page_val = 0;
+    int pagefirst = 0;
     
     
     // a selector callback
@@ -91,14 +88,16 @@ public:
     ui::PageView *bgpageView;
     void PlayClickCallback(cocos2d::Ref* pSender);
     
-    void pageViewEvent(Ref *sender, ui::PageView::EventType type);
+    
     
     virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
     
-  
+    void pageViewEvent(Ref *sender, ui::PageView::EventType type);
+    void pageViewEvent1(Ref *pSender, PageViewEventType type);
+
     
     Layer *menuSettingLayer;
 

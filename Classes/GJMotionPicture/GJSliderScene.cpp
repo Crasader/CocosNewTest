@@ -42,30 +42,100 @@ bool SliderScene::init()
         return false;
     }
     
+    //auto visibleSize = Director::getInstance()->getVisibleSize();
+   // Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+//    ui::ScrollView *scrollView = ui::ScrollView::create( );
+//
+//    scrollView->setDirection( ui::ScrollView::Direction::HORIZONTAL );
+//    scrollView->setContentSize( Size( 500, 500 ) );
+//    scrollView->setInnerContainerSize( Size( 1000, 500 ) );
+//    scrollView->setBackGroundImage( "HelloWorld.png" );
+//    scrollView->setBounceEnabled( true );
+//    scrollView->setAnchorPoint( Vec2( 0.5, 0.5 ) );
+//    scrollView->setPosition( Vec2( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y) );
+//    for ( int i = 1; i <= 4; i++ )
+//    {
+//
+//        ui::Button *button = ui::Button::create( "Sliderbox.png", "Sliderbox.png" );
+//        button->setPosition( Vec2( ((scrollView->getContentSize( ).width/4)*(i+(i-1))), scrollView->getContentSize( ).height / 2) );
+//        scrollView->addChild( button );
+//    }
+//    this->addChild( scrollView );
+    
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    ui::ScrollView *scrollView = ui::ScrollView::create( );
+   
+    Size size(500, 500);
+    PageView* pageView = PageView::create();
+    pageView->setDirection(PageView::Direction::HORIZONTAL);
+    pageView->setContentSize(size);
+    //Size backgroundSize = background->getContentSize();
+    pageView->setPosition((visibleSize - pageView->getContentSize()) / 2.0f);
+    pageView->removeAllItems();
+    pageView->setIndicatorEnabled(true);
+    pageView->setGlobalZOrder(200);
     
-    scrollView->setDirection( ui::ScrollView::Direction::HORIZONTAL );
-    scrollView->setContentSize( Size( 500, 500 ) );
-    scrollView->setInnerContainerSize( Size( 1000, 500 ) );
-    scrollView->setBackGroundImage( "HelloWorld.png" );
-    scrollView->setBounceEnabled( true );
-    scrollView->setAnchorPoint( Vec2( 0.5, 0.5 ) );
-    scrollView->setPosition( Vec2( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y) );
-    for ( int i = 1; i <= 4; i++ )
+    pageView->setIndicatorEnabled(true);
+    pageView->setIndicatorSpaceBetweenIndexNodes(5);
+    pageView->setIndicatorIndexNodesScale(0.5);
+    pageView->setIndicatorIndexNodesTexture("ExitBtn.png");
+    pageView->setIndicatorIndexNodesColor(Color3B::RED);
+    
+    pageView->setMagneticType(PageView::MagneticType::CENTER);
+    pageView->setGravity(PageView::Gravity::CENTER_HORIZONTAL);
+    pageView->setBounceEnabled(true);
+    
+
+    int pageCount = 4;
+    for (int i = 0; i < pageCount; ++i)
     {
+        Layout* layout = Layout::create();
+        layout->setContentSize(size);
         
-        ui::Button *button = ui::Button::create( "Sliderbox.png", "Sliderbox.png" );
-        button->setPosition( Vec2( ((scrollView->getContentSize( ).width/4)*(i+(i-1))), scrollView->getContentSize( ).height / 2) );
-        scrollView->addChild( button );
+        ImageView* imageView = ImageView::create("MP1.png");
+        imageView->setScale9Enabled(true);
+        imageView->setContentSize(size);
+        imageView->setPosition(Vec2(layout->getContentSize().width / 2.0f, layout->getContentSize().height / 2.0f));
+        layout->addChild(imageView);
+        
+        Text* label = Text::create(StringUtils::format("page %d",(i+1)), "fonts/Marker Felt.ttf", 30);
+        label->setColor(Color3B(192, 192, 192));
+        label->setPosition(Vec2(layout->getContentSize().width / 2.0f, layout->getContentSize().height / 2.0f));
+        layout->addChild(label);
+        
+        pageView->insertCustomItem(layout, i);
     }
-    this->addChild( scrollView );
+    pageView->setIndicatorIndexNodesOpacity(255);
+    
+    this->addChild(pageView);
     
     
-    
-    
+//    _indicator = PageViewIndicator::create();
+//    _indicator->setDirection(getDirection());
+//    addProtectedChild(_indicator, 10000);
+//    setIndicatorSelectedIndexColor(Color3B(100, 100, 255));
+//    refreshIndicatorPosition();
 
     return true;
 }
+
+
+void SliderScene::pageViewEvent(Ref *pSender, PageViewEventType type)
+{
+    switch (type)
+    {
+        case PAGEVIEW_EVENT_TURNING:
+        {
+            PageView* pageView = dynamic_cast<PageView*>(pSender);
+            
+            _displayValueLabel->setString(StringUtils::format("page = %ld", static_cast<long>(pageView->getCurrentPageIndex() + 1)));
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
