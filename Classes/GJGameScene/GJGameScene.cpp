@@ -10,6 +10,7 @@
 #include "GJPlayScene.hpp"
 #include "GJMenuScene.hpp"
 #include "GJSettingScene.hpp"
+#include "GJSliderScene.hpp"
 
 
 
@@ -87,7 +88,7 @@ bool GameScene::init()
 }
 void GameScene::MotionCallback(Ref* pSender)
 {
-    auto scene = MotionScene::createScene();
+    auto scene = SliderScene::createScene();
     cocos2d::TransitionFade* transition = cocos2d::TransitionFade::create(.5, scene);
     Director::getInstance()->replaceScene(transition);
 }

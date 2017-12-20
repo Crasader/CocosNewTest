@@ -8,9 +8,18 @@
 
 #ifndef GJMotionScene_hpp
 #define GJMotionScene_hpp
-
 #include <stdio.h>
 #include "cocos2d.h"
+
+
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+
+
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+USING_NS_CC;
+
 using namespace cocos2d;
 
 class MotionScene : public cocos2d::Scene

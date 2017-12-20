@@ -653,6 +653,8 @@ bool SettingScene::init()
     white_bg->addChild(menu, 1);
 
     pageView->addEventListener(CC_CALLBACK_2(SettingScene::pageViewEvent,this));
+    pageView->setIndicatorEnabled(true);
+    //pageView->addEventListenerPageView(this, pagevieweventselector(SettingScene::pageViewEvent1));
     
     
     auto touchListener = EventListenerTouchOneByOne::create();
@@ -670,13 +672,9 @@ bool SettingScene::init()
     
     return true;
 }
+
 bool SettingScene::onTouchBegan(Touch* touch, Event* event)
 {
-    CCLOG("begin");
-    auto pos = convertToWorldSpace(MenuItem1->getPosition());
-    auto pos1 = MenuItem1->getPosition();
-    CCLOG("Points x %f , y %f",pos.x,pos.y);
-    CCLOG("Points x %f , y %f",pos1.x,pos1.y);
     cocos2d::log("touch begin");
     return true;
 }
@@ -686,7 +684,63 @@ void SettingScene::onTouchEnded(Touch* touch, Event* event)
 }
 void SettingScene::onTouchMoved(Touch* touch, Event* event)
 {
-    CCLOG("moved");
+    auto _currentPage = pageView->getCurrentPageIndex();
+    CCLOG("x = %d\n", (int)_currentPage);
+    if(page_val==0 && pagefirst!=_currentPage)
+    {
+        CCLOG("come");
+        page_val=1;
+        menuMoveEffect0 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*-1),white_bg->getContentSize( ).height*.90));
+        menuMoveEffect1 = MoveTo::create(0.5, Vec2(0,white_bg->getContentSize( ).height*.90));
+        menuMoveEffect2 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*1),white_bg->getContentSize( ).height*.90));
+        menuMoveEffect3 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*2),white_bg->getContentSize( ).height*.90));
+        menuMoveEffect4 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*3),white_bg->getContentSize( ).height*.90));
+        menuMoveEffect5 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*4),white_bg->getContentSize( ).height*.90));
+        
+        if(_currentPage==0)
+        {
+            MenuItem1->runAction(FadeTo::create(0.5f,255));
+            MenuItem2->runAction(FadeTo::create(0.5f,50));
+            MenuItem1->runAction( menuMoveEffect2);
+            MenuItem2->runAction( menuMoveEffect3);
+            MenuItem3->runAction( menuMoveEffect4);
+            MenuItem4->runAction( menuMoveEffect5);
+        }
+        else if (_currentPage==1)
+        {
+            MenuItem1->runAction(FadeTo::create(0.5f,50));
+            MenuItem2->runAction(FadeTo::create(0.5f,255));
+            MenuItem3->runAction(FadeTo::create(0.5f,50));
+            
+            MenuItem1->runAction( menuMoveEffect1);
+            MenuItem2->runAction( menuMoveEffect2);
+            MenuItem3->runAction( menuMoveEffect3);
+            MenuItem4->runAction( menuMoveEffect4);
+        }
+        else if (_currentPage==2)
+        {
+            MenuItem2->runAction(FadeTo::create(0.5f,50));
+            MenuItem3->runAction(FadeTo::create(0.5f,255));
+            MenuItem4->runAction(FadeTo::create(0.5f,50));
+            
+            MenuItem1->runAction( menuMoveEffect0);
+            MenuItem2->runAction( menuMoveEffect1);
+            MenuItem3->runAction( menuMoveEffect2);
+            MenuItem4->runAction( menuMoveEffect3);
+        }
+        else if (_currentPage==3)
+        {
+            MenuItem3->runAction(FadeTo::create(0.5f,50));
+            MenuItem4->runAction(FadeTo::create(0.5f,255));
+            
+            
+            MenuItem1->runAction( menuMoveEffect0);
+            MenuItem2->runAction( menuMoveEffect0);
+            MenuItem3->runAction( menuMoveEffect1);
+            MenuItem4->runAction( menuMoveEffect2);
+        }
+    }
+    
     cocos2d::log("touch moved");
 }
 void SettingScene::onTouchCancelled(Touch* touch, Event* event)
@@ -886,6 +940,63 @@ void SettingScene::pageViewEvent(Ref *sender, ui::PageView::EventType type)
     {
         case ui::PageView::EventType::TURNING:
             log("%zi",pageView->getCurrentPageIndex());
+            
+            if(1==1)
+            {
+                auto _currentPage = pageView->getCurrentPageIndex();
+                page_val=1;
+                menuMoveEffect0 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*-1),white_bg->getContentSize( ).height*.90));
+                menuMoveEffect1 = MoveTo::create(0.5, Vec2(0,white_bg->getContentSize( ).height*.90));
+                menuMoveEffect2 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*1),white_bg->getContentSize( ).height*.90));
+                menuMoveEffect3 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*2),white_bg->getContentSize( ).height*.90));
+                menuMoveEffect4 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*3),white_bg->getContentSize( ).height*.90));
+                menuMoveEffect5 = MoveTo::create(0.5, Vec2(((white_bg->getContentSize( ).width/2)*4),white_bg->getContentSize( ).height*.90));
+                
+                if(_currentPage==0)
+                {
+                    MenuItem1->runAction(FadeTo::create(0.5f,255));
+                    MenuItem2->runAction(FadeTo::create(0.5f,50));
+                    MenuItem1->runAction( menuMoveEffect2);
+                    MenuItem2->runAction( menuMoveEffect3);
+                    MenuItem3->runAction( menuMoveEffect4);
+                    MenuItem4->runAction( menuMoveEffect5);
+                }
+                else if (_currentPage==1)
+                {
+                    MenuItem1->runAction(FadeTo::create(0.5f,50));
+                    MenuItem2->runAction(FadeTo::create(0.5f,255));
+                    MenuItem3->runAction(FadeTo::create(0.5f,50));
+                    
+                    MenuItem1->runAction( menuMoveEffect1);
+                    MenuItem2->runAction( menuMoveEffect2);
+                    MenuItem3->runAction( menuMoveEffect3);
+                    MenuItem4->runAction( menuMoveEffect4);
+                }
+                else if (_currentPage==2)
+                {
+                    MenuItem2->runAction(FadeTo::create(0.5f,50));
+                    MenuItem3->runAction(FadeTo::create(0.5f,255));
+                    MenuItem4->runAction(FadeTo::create(0.5f,50));
+                    
+                    MenuItem1->runAction( menuMoveEffect0);
+                    MenuItem2->runAction( menuMoveEffect1);
+                    MenuItem3->runAction( menuMoveEffect2);
+                    MenuItem4->runAction( menuMoveEffect3);
+                }
+                else if (_currentPage==3)
+                {
+                    MenuItem3->runAction(FadeTo::create(0.5f,50));
+                    MenuItem4->runAction(FadeTo::create(0.5f,255));
+                    
+                    
+                    MenuItem1->runAction( menuMoveEffect0);
+                    MenuItem2->runAction( menuMoveEffect0);
+                    MenuItem3->runAction( menuMoveEffect1);
+                    MenuItem4->runAction( menuMoveEffect2);
+                }
+                pagefirst=_currentPage;
+                page_val=0;
+            }
             break;
 
             default:
